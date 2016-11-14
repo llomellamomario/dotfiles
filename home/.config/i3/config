@@ -255,5 +255,5 @@ exec --no-startup-id locker
 exec --no-startup-id sleep 8; megasync;
 
 # wallpaper
-exec_always --no-startup-id ~/.config/i3/scripts/i3/fehbg
+exec_always ~/.config/i3/scripts/i3/fehbg
 
