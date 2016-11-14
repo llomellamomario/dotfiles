@@ -1,0 +1,259 @@
+# i3 config file (v4)
+#
+# Please see http://i3wm.org/docs/userguide.html for a complete reference!
+
+#############
+# Variables #
+#############
+
+set $mod Mod4
+set $fonttype Sawasdee
+set $fontmodifier Bold
+set $fontsize 11
+
+# Font for window titles. Will also be used by the bar unless a different font
+# is used in the bar {} block below.
+font pango:$fonttype $fontsize
+
+#Sawasdee Purisa
+
+##################
+# i3 keybindings #
+##################
+
+# change focus
+bindsym $mod+j focus left
+bindsym $mod+k focus down
+bindsym $mod+l focus up
+bindsym $mod+semicolon focus right
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+# move focused window
+bindsym $mod+Shift+j move left
+bindsym $mod+Shift+k move down
+bindsym $mod+Shift+l move up
+bindsym $mod+Shift+semicolon move right
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+# kill focused window
+bindsym $mod+Shift+q kill
+bindsym Alt+F4 kill
+
+# Bind $mod to drag floating windows
+floating_modifier $mod
+
+# start a terminal
+bindsym $mod+Return exec i3-sensible-terminal
+
+#Rofi DRun/Window combi to mod+d, rofi run to mod+f2. Clean rofi command
+bindsym $mod+d exec --no-startup-id "rofi -show combi -switchers combi -combi-modi window,drun -location 2 -width 33 -lines 9 -font '$fonttype $fontmodifier $fontsize' -bg '$bg-color' -bg-active '$bg-color' -bg-urgent '$bg-color' -bc '$inactive-text-color' -fg '$text-color' -fg-active '$text-color' -hlbg '$inactive-bg-color' -hlbg-active '$inactive-bg-color' -hlbg '$inactive-bg-color' -hlfg '$bg-color' -hlfg-active '$bg-color' -hlfg-urgent '$bg-color' -opacity 85"
+bindsym $mod+F2 exec --no-startup-id "rofi -show run -location 2 -width 33 -lines 9 -font '$fonttype $fontmodifier $fontsize' -bg '$bg-color' -bg-active '$bg-color' -bg-urgent '$bg-color' -bc '$inactive-text-color' -fg '$text-color' -fg-active '$text-color' -hlbg '$inactive-bg-color' -hlbg-active '$inactive-bg-color' -hlbg '$inactive-bg-color' -hlfg '$bg-color' -hlfg-active '$bg-color' -hlfg-urgent '$bg-color' -opacity 85"
+
+# switch to workspace with urgent window automatically
+bindsym $mod+Tab [urgent=latest] focus
+
+# Container layout modifiers
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+bindsym $mod+h split h
+bindsym $mod+v split v
+bindsym $mod+f fullscreen toggle
+bindsym $mod+Shift+space floating toggle
+bindsym $mod+space focus mode_toggle
+
+# focus the parent container
+bindsym $mod+a focus parent
+
+# reload/restart i3
+bindsym $mod+Shift+c reload
+bindsym $mod+Shift+r restart
+
+#Exit menu
+#set $Locker i3lock && sleep 1
+#bindsym $mod+Pause exec "i3-nagbar -t warning -m 'Session options: ' -b 'Lock' 'exec --no-startup-id $Locker' -b 'Logout' 'i3-msg exit' -b 'Suspend' '$Locker && systemctl suspend' -b 'Hibernate' '$Locker && systemctl hibernate' -b 'Reboot' 'systemctl reboot' -b 'Power off' 'systemctl poweroff'"
+
+set $Locker locksnap && sleep 1
+
+set $mode_system (L)ock (E)xit (S)uspend (H)ibernate (R)eboot (P)ower Off
+mode "$mode_system" {
+    bindsym l exec --no-startup-id $Locker, mode "default"
+    bindsym e exec --no-startup-id i3-msg exit, mode "default"
+    bindsym s exec --no-startup-id $Locker && systemctl suspend, mode "default"
+    bindsym h exec --no-startup-id $Locker && systemctl hibernate, mode "default"
+    bindsym r exec --no-startup-id systemctl reboot, mode "default"
+    bindsym p exec --no-startup-id systemctl poweroff -i, mode "default"  
+
+    # back to normal: Enter or Escape
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
+bindsym $mod+Pause mode "$mode_system"
+
+# exit i3 (logs you out of your X session)
+bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'Do you really want to logout?' -b 'Yes, exit i3' 'i3-msg exit'"
+
+# Lock screen
+bindsym $mod+shift+x exec --no-startup-id locksnap
+
+# focus the child container
+#bindsym $mod+d focus child
+
+##############
+# Workspaces #
+##############
+
+#Variables for the workspaces
+set $workspace1 "1 "
+set $workspace2 "2 "
+set $workspace3 "3 "
+set $workspace4 "4 "
+set $workspace5 "5 "
+set $workspace6 "6 "
+set $workspace7 "7"
+set $workspace8 "8"
+set $workspace9 "9"
+set $workspace10 "10 "
+
+# switch to workspace
+bindsym $mod+1 workspace $workspace1
+bindsym $mod+2 workspace $workspace2
+bindsym $mod+3 workspace $workspace3
+bindsym $mod+4 workspace $workspace4
+bindsym $mod+5 workspace $workspace5
+bindsym $mod+6 workspace $workspace6
+bindsym $mod+7 workspace $workspace7
+bindsym $mod+8 workspace $workspace8
+bindsym $mod+9 workspace $workspace9
+bindsym $mod+0 workspace $workspace10
+
+# move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace $workspace1
+bindsym $mod+Shift+2 move container to workspace $workspace2
+bindsym $mod+Shift+3 move container to workspace $workspace3
+bindsym $mod+Shift+4 move container to workspace $workspace4
+bindsym $mod+Shift+5 move container to workspace $workspace5
+bindsym $mod+Shift+6 move container to workspace $workspace6
+bindsym $mod+Shift+7 move container to workspace $workspace7
+bindsym $mod+Shift+8 move container to workspace $workspace8
+bindsym $mod+Shift+9 move container to workspace $workspace9
+bindsym $mod+Shift+0 move container to workspace $workspace10
+
+
+#Assign certain programs to certain workspaces
+assign[class="Firefox"] $workspace1
+assign[class="Eclipse"] $workspace2
+assign[class="UXTerm"] $workspace3
+assign[class="Pluma"] $workspace4
+
+# resize window (you can also use the mouse for that)
+mode "resize" {
+        # These bindings trigger as soon as you enter the resize mode
+
+        # Pressing left will shrink the window’s width.
+        # Pressing right will grow the window’s width.
+        # Pressing up will shrink the window’s height.
+        # Pressing down will grow the window’s height.
+        bindsym j resize shrink width 5 px or 5 ppt
+        bindsym k resize grow height 5 px or 5 ppt
+        bindsym l resize shrink height 5 px or 5 ppt
+        bindsym semicolon resize grow width 5 px or 5 ppt
+
+        # same bindings, but for the arrow keys
+        bindsym Left resize shrink width 5 px or 5 ppt
+        bindsym Down resize grow height 5 px or 5 ppt
+        bindsym Up resize shrink height 5 px or 5 ppt
+        bindsym Right resize grow width 5 px or 5 ppt
+
+        # back to normal: Enter or Escape
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+
+bindsym $mod+r mode "resize"
+
+##########
+# Colors #
+##########
+
+set $bg-color 	         #333333
+set $inactive-bg-color   #444444
+set $text-color          #F607B2
+set $inactive-text-color #D442AB
+set $urgent-bg-color     #666666
+set $tiling-bar-color	 #F607B2
+set $bg-color-contrast   #DDDDDD
+
+# window colors
+#                       border              background         text                 indicator
+client.focused          $bg-color           $bg-color          $text-color          $tiling-bar-color
+client.unfocused        $inactive-bg-color  $inactive-bg-color $inactive-text-color $tiling-bar-color
+client.focused_inactive $inactive-bg-color  $inactive-bg-color $inactive-text-color $tiling-bar-color
+client.urgent			$urgent-bg-color    $urgent-bg-color   $text-color 			$tiling-bar-color
+
+# Start i3bar to display a workspace bar (plus the system information i3status
+# finds out, if available)
+bar {
+        status_command i3blocks -c ~/.config/i3/i3blocks.conf
+		font pango:$fonttype $fontsize
+		colors {
+			background $bg-color
+		    separator $text-color
+			statusline $bg-color-contrast
+			#                  border             background         text
+			focused_workspace  $bg-color          $bg-color          $text-color
+			inactive_workspace $inactive-bg-color $inactive-bg-color $inactive-text-color
+			urgent_workspace   $urgent-bg-color   $urgent-bg-color   $text-color
+		}
+        #tray_output primary
+		position top
+}
+
+####################
+# User keybindings #
+####################
+
+# Pulse Audio controls
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +10% #increase sound volume
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -10% #decrease sound volume
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle # mute sound
+
+# Sreen brightness controls
+bindsym XF86MonBrightnessUp exec xbacklight -inc 10 # increase screen brightness
+bindsym XF86MonBrightnessDown exec xbacklight -dec 10 # decrease screen brightness
+
+# Touchpad controls
+bindsym XF86Display exec ~/.config/i3/scripts/i3/touchpad # toggle touchpad
+
+# Media player controls
+bindsym XF86AudioPlay exec playerctl play
+bindsym XF86AudioPause exec playerctl pause
+bindsym XF86AudioNext exec playerctl next
+bindsym XF86AudioPrev exec playerctl previous
+
+#################
+# Login Prorams #
+#################
+
+# touchpad config
+exec --no-startup-id ~/.config/i3/scripts/touchpad_config 
+
+# compositor
+exec --no-startup-id compton -f #--config /home/haruhi/.config/compton.conf
+
+# lxle autolock program
+exec --no-startup-id locker 
+
+# file sync
+exec --no-startup-id sleep 8; megasync;
+
+# wallpaper
+exec_always --no-startup-id ~/.config/i3/scripts/i3/fehbg
+
