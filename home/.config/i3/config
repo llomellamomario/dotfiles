@@ -21,6 +21,8 @@ font pango:$fonttype $fontsize
 # i3 keybindings #
 ##################
 
+# xmodmap -pke or xev can be used tofind the key bindings
+
 # change focus
 bindsym $mod+j focus left
 bindsym $mod+k focus down
@@ -43,7 +45,7 @@ bindsym $mod+Shift+Right move right
 
 # kill focused window
 bindsym $mod+Shift+q kill
-bindsym Alt+F4 kill
+bindsym $mod+F4 kill
 
 # Bind $mod to drag floating windows
 floating_modifier $mod
@@ -110,14 +112,14 @@ bindsym $mod+shift+x exec --no-startup-id locksnap
 # Workspaces #
 ##############
 
-#Variables for the workspaces
-set $workspace1 "1 "
-set $workspace2 "2 "
-set $workspace3 "3 "
-set $workspace4 "4 "
-set $workspace5 "5 "
+#Variables for the workspaces 
+set $workspace1 "1 " 
+set $workspace2 "2 "
+set $workspace3 "3 "
+set $workspace4 "4 "
+set $workspace5 "5 "
 set $workspace6 "6 "
-set $workspace7 "7"
+set $workspace7 "7 "
 set $workspace8 "8"
 set $workspace9 "9"
 set $workspace10 "10 "
@@ -148,10 +150,10 @@ bindsym $mod+Shift+0 move container to workspace $workspace10
 
 
 #Assign certain programs to certain workspaces
-assign[class="Firefox"] $workspace1
-assign[class="Eclipse"] $workspace2
-assign[class="UXTerm"] $workspace3
-assign[class="Pluma"] $workspace4
+assign[class="Firefox"] $workspace2
+assign[class="Eclipse"] $workspace3
+assign[class="UXTerm"] $workspace4
+assign[class="Pluma"] $workspace5
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
@@ -178,6 +180,17 @@ mode "resize" {
 }
 
 bindsym $mod+r mode "resize"
+
+####################
+# Floating windows #
+####################
+
+# Use xprop to find WM_CLASS or WM_WINDOW_ROLE
+
+for_window [window_role="pop-up"] floating enable
+for_window [window_role="task_dialog"] floating enable
+for_window [class="Main.py"] floating enable
+
 
 ##########
 # Colors #
@@ -254,6 +267,11 @@ exec --no-startup-id locker
 # file sync
 exec --no-startup-id sleep 8; megasync;
 
+#polkit agent
+exec --no-startup-id /usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1
+
 # wallpaper
 exec_always ~/.config/i3/scripts/i3/fehbg
 
+# drop down terminal
+exec --no-startup-id guake
