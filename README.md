@@ -1,2 +1,2 @@
 # dotfiles
-PC/laptop dot files (mostly learning in the laptop at this point)
+Old PC/laptop dot files, use at your own risk
